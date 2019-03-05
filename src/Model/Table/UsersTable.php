@@ -9,6 +9,8 @@ use Cake\Validation\Validator;
 /**
  * Users Model
  *
+ * @property |\Cake\ORM\Association\HasMany $Purchases
+ *
  * @method \App\Model\Entity\User get($primaryKey, $options = [])
  * @method \App\Model\Entity\User newEntity($data = null, array $options = [])
  * @method \App\Model\Entity\User[] newEntities(array $data, array $options = [])
@@ -38,6 +40,10 @@ class UsersTable extends Table
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
+
+        $this->hasMany('Purchases', [
+            'foreignKey' => 'user_id'
+        ]);
     }
 
     /**
@@ -75,12 +81,17 @@ class UsersTable extends Table
             ->allowEmptyString('age', false);
 
         $validator
-            ->decimal('salary')
+            ->numeric('salary')
             ->requirePresence('salary', 'create')
             ->allowEmptyString('salary', false);
 
         $validator
-            ->decimal('extra_lace')
+            ->numeric('balance')
+            ->requirePresence('balance', 'create')
+            ->allowEmptyString('balance', false);
+
+        $validator
+            ->numeric('extra_lace')
             ->requirePresence('extra_lace', 'create')
             ->allowEmptyString('extra_lace', false);
 

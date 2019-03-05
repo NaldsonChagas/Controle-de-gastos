@@ -20,3 +20,15 @@
     </ul>
   </div>
 </div>
+
+<div class="row content">
+  <div class="col-md-5">
+    <h3 class="text-center">Saldo mensal</h3>
+
+    <ul class="list-group">
+      <li class="list-group-item text-success">Saldo mensal: R$ <?= number_format($userBalance, 2, ',', '.'); ?></li>
+      <li class="list-group-item"><a href="#">Relatórios detalhados</a></li>
+    </ul>
+
+  </div>
+</div>

@@ -11,7 +11,7 @@ class PurchasesController extends AppController
     public function index()
     {
         $this->paginate = [
-            'limit' => 1,
+            'limit' => 5,
             'order' => [
                 'Purchases.id' => 'asc',
             ],
