@@ -34,9 +34,12 @@ class PurchasesController extends AppController
             
             
             if ($this->Purchases->save($purchasePatchEntity)) {
-                $this->installmentPayment($purchasePatchEntity);
-                $this->Flash->success('Compra realizada com sucesso');  
-                return $this->redirect(['action' => 'index']);
+                if ($this->installmentPayment($purchasePatchEntity)) {
+                    $this->Flash->success(__('Compra realizada com sucesso'));  
+                    return $this->redirect(['action' => 'index']);
+                }
+            } else {
+                $this->Flash->error(__('Não foi possível registrar sua compra'));
             }
         }
 
