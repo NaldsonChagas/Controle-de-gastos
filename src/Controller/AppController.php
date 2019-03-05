@@ -50,8 +50,18 @@ class AppController extends Controller
                 'controller' => 'users',
                 'action' => 'index',
             ], 
-            'logoutRedirect' => 'users',
-            'action' => 'login',
+            'logoutRedirect' => [
+                'controller' => 'users',
+                'action' => 'login',
+            ], 
+            'authenticate' => [
+                'Form' => [
+                    'fields' => [
+                        'username' => 'email', 
+                        'password' => 'password'
+                    ]
+                ]
+            ]
         ]);
         $this->Auth->allow('add');
 

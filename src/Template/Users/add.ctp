@@ -2,7 +2,7 @@
   <h2>Crie uma nova conta</h2>
   <p>Caso já tenha uma, você pode <?=$this->Html->link(__('entrar'), ['action' => 'login'])?></p>
 
-  <?=$this->Form->create($users)?>
+  <?=$this->Form->create($user)?>
 
   <?=$this->Form->control('name')?>
   <?=$this->Form->control('email')?>

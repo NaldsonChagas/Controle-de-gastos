@@ -4,25 +4,37 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 
-
-class UsersController extends AppController 
+class UsersController extends AppController
 {
-    
-    public function add() 
+
+    public function index() 
     {
-        $users = $this->Users->newEntity();
-
-        $this->set(compact('users'));
-
-        if ($this->request->is('POST')) {
-            $this->Users->save($user);
-            $this->Flash->success('Cadastro realizado com sucesso');
-        } else {
-            $this->Flash->error('Não foi possível realizar o seu cadastro');
-        }
+        $user = $this->Auth->user();
+        $this->set(compact('user'));
     }
 
-    public function login() 
+    public function add()
+    {
+        $user = $this->Users->newEntity();
+
+        if ($this->request->is('POST')) {
+
+            echo $user->salary;
+
+            $userPatchEntity = $this->Users->PatchEntity($user,
+                $this->request->getData());
+
+            if ($this->Users->save($user)) {
+                $this->Flash->success('Cadastro realizado com sucesso');
+            } else {
+                $this->Flash->error('Não foi possível realizar o seu cadastro');
+            }
+        }
+
+        $this->set(compact('user'));
+    }
+
+    public function login()
     {
         if ($this->request->is('POST')) {
 
@@ -37,8 +49,8 @@ class UsersController extends AppController
         }
     }
 
-    public function logout() 
+    public function logout()
     {
-
+        return $this->redirect($this->Auth->logout());
     }
 }
