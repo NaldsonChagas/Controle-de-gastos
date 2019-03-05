@@ -17,7 +17,7 @@
   </div>
 
   <div class="form-group">
-    <select class="form-control">
+    <select class="form-control hidden" name="installment-payment" id="installment-payment">
       <option>Selecione o número de parcelas</option>
     </select>
   </div>
@@ -38,3 +38,8 @@
 
   <?=$this->Form->end()?>
 </div>
+
+<?= $this->Html->script('Controller/PurchasesController.js') ?>
+<script>
+  const controller = new PurchasesController();
+</script>
