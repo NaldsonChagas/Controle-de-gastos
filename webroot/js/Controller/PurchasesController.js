@@ -32,7 +32,7 @@ class PurchasesController {
           style: 'currency',
           currency: 'BRL'
         })}`;
-        option.value = installment;
+        option.value = i+1;
 
         this._select.appendChild(option);
       }

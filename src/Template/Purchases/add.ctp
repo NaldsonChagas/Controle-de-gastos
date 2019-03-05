@@ -12,7 +12,7 @@
   </div>
 
   <div class="form-group">
-    <input type="checkbox" id="isInstallments"> 
+    <input type="checkbox" id="isInstallments" name="isInstallments"> 
     <label for="isInstallmens">É um valor parcelado</label>
   </div>
 
@@ -25,6 +25,11 @@
   <div class="form-group">
     <label for="description">Description</label>
     <?= $this->Form->textarea('description', ['class' => 'form-control'])?>
+  </div>
+
+  <div class="form-group">
+    <label for="created">Created</label>
+    <input type="date" name="created" id="created" required class="form-control">
   </div>
 
   <div class="form-group">

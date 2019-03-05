@@ -4,19 +4,18 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * Purchase Entity
+ * Installment Entity
  *
  * @property int $id
- * @property string $title
+ * @property int $purchase_id
  * @property float $value
- * @property string $description
- * @property int $user_id
- * @property \Cake\I18n\FrozenTime $created
- * @property \Cake\I18n\FrozenTime $modified
+ * @property \Cake\I18n\FrozenDate $start
+ * @property int $installments
  *
+ * @property \App\Model\Entity\Purchase $purchase
  * @property \App\Model\Entity\User $user
  */
-class Purchase extends Entity
+class Installment extends Entity
 {
 
     /**
@@ -29,13 +28,11 @@ class Purchase extends Entity
      * @var array
      */
     protected $_accessible = [
-        'id' => true,
-        'title' => true,
+        'purchase_id' => true,
         'value' => true,
-        'description' => true,
-        'user_id' => true,
-        'created' => true,
-        'modified' => true,
+        'start' => true,
+        'installments' => true,
+        'purchase' => true,
         'user' => true
     ];
 }

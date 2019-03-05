@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controller;
+use Cake\ORM\TableRegistry;
 
 use App\Controller\AppController;
 
@@ -28,12 +29,34 @@ class PurchasesController extends AppController
         if ($this->request->is('POST')) {
             $purchasePatchEntity = $this->Purchases
                 ->patchEntity($purchase, $this->request->getData());
+
+            $purchasePatchEntity->user_id = $this->Auth->user()['id'];
             
-            $this->Purchases->save($purchasePatchEntity);
-            $this->Flash->success('Compra realizada com sucesso');
-            return redirect(['action' => 'index']);
+            
+            if ($this->Purchases->save($purchasePatchEntity)) {
+                $this->installmentPayment($purchasePatchEntity);
+                $this->Flash->success('Compra realizada com sucesso');  
+                return $this->redirect(['action' => 'index']);
+            }
         }
 
         $this->set(compact('purchase'));
+    }
+
+    private function installmentPayment($purchase) {
+        if ($this->request->data['isInstallments'] == 'on') {
+            $installmentData = $this->request->data['installment-payment'];
+
+            $installmentTable = TableRegistry::get('installments');
+            $installment = $installmentTable->newEntity();
+
+            $installment->purchase_id = $purchase->id;
+            $installment->value = $purchase->value;
+            $installment->start = date("Y-m-d", strtotime($purchase->created));
+            $installment->installments = $installmentData;
+
+            $installmentTable->save($installment);
+
+        }
     }
 }
