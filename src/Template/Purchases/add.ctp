@@ -35,7 +35,7 @@
   <div class="form-group">
     <?= $this->Form->button('Salvar', ['class' => 'btn btn-success'])?>
     <?= $this->Html->link(__('Cancelar'), [
-      'controller' => 'users',
+      'controller' => 'welcome',
       'action' => 'index'], 
       ['class' => 'btn btn-default']);
     ?>
