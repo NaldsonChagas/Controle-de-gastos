@@ -71,7 +71,7 @@ class PurchasesTable extends Table
             ->allowEmptyString('value', false);
 
         $validator
-            ->decimal('description')
+            ->scalar('description')
             ->requirePresence('description', 'create')
             ->allowEmptyString('description', false);
 
