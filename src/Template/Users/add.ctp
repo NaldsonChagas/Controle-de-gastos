@@ -4,13 +4,25 @@
 
   <?=$this->Form->create($user)?>
 
-  <?=$this->Form->control('name')?>
-  <?=$this->Form->control('email')?>
-  <?=$this->Form->control('password')?>
-  <?=$this->Form->control('age')?>
-  <?=$this->Form->control('salary')?>
-  <?=$this->Form->control('extra_lace')?>
+  <div class="form-group">
+    <?=$this->Form->control('name', ['class'=>'form-control'])?>
+  </div>
+  <div class="form-group">
+    <?=$this->Form->control('email', ['class'=>'form-control'])?>
+  </div>
+  <div class="form-group">
+    <?=$this->Form->control('password', ['class'=>'form-control'])?>
+  </div>
+  <div class="form-group">
+    <?=$this->Form->control('age', ['class'=>'form-control'])?>
+  </div>
+  <div class="form-group">
+    <?=$this->Form->control('salary', ['class'=>'form-control'])?>
+  </div>
+  <div class="form-group">
+    <?=$this->Form->control('extra_lace', ['class'=>'form-control'])?>
+  </div>
 
-  <?= $this->Form->button('Cadastrar')?>
+  <?= $this->Form->button('Cadastrar', ['class'=>'btn btn-success'])?>
   <?=$this->Form->end()?>
 </div>

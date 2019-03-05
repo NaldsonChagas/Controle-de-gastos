@@ -3,7 +3,7 @@
   <?=$this->Html->link(__('Página inicial'),
     ['controller' => 'welcome', 'action' => 'index'])?>
 
-  <table class="table table-striped">
+  <table class="table table-bordered">
     <thead>
       <tr>
         <td>Título</td>
@@ -28,12 +28,13 @@
       ?>
     </tbody>
   </table>
-  <ul class="pagination">
-    <li class="page-item"><?=$this->Paginator->first(__('Primeira'))?></li>
-    <li class="page-item"><?=$this->Paginator->prev(__('Anterior'))?></li>
-    <li class="page-item"><?=$this->Paginator->numbers()?></li>
-    <li class="page-item"><?=$this->Paginator->next(__('Próxima'))?></li>
-    <li class="page-item"><?=$this->Paginator->last(__('Última'))?></li>
-  </ul>
-  <br>
+  <nav aria-label="Page navigation">
+    <ul class="pagination">
+      <li class="page-item"><?=$this->Paginator->first(__('Primeira'), ['class' => 'page-link'])?></li>
+      <li class="page-item"><?=$this->Paginator->prev(__('Anterior'), ['class' => 'page-link'])?></li>
+      <li class="page-item"><?=$this->Paginator->numbers()?></li>
+      <li class="page-item"><?=$this->Paginator->next(__('Próxima'), ['class' => 'page-link'])?></li>
+      <li class="page-item"><?=$this->Paginator->last(__('Última'), ['class' => 'page-link'])?></li>
+    </ul>
+  </nav>
 </div>

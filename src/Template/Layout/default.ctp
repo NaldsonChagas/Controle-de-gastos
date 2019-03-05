@@ -26,33 +26,19 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     </title>
     <?= $this->Html->meta('icon') ?>
 
-    <?= $this->Html->css('base.css') ?>
     <?= $this->Html->css('bootstrap.min.css') ?>
     <?= $this->Html->css('util.css') ?>
 
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
-    <style>
-        .content {
-            margin-top: 20px;
-        }
-    </style>
 </head>
 <body>
-    <nav class="top-bar expanded" data-topbar role="navigation">
-        <ul class="title-area large-3 medium-4 columns">
-            <li class="name">
-                <h1><a href="">Controle de gastos</a></h1>
-            </li>
-        </ul>
-        <div class="top-bar-section">
-            <ul class="right">
-                <li><a target="_blank" href="https://book.cakephp.org/3.0/">Documentation</a></li>
-                <li><a target="_blank" href="https://api.cakephp.org/3.0/">API</a></li>
-            </ul>
+    <div class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="navbar-brand">
+                Controle de gastos
         </div>
-    </nav>
+    </div>
     <?= $this->Flash->render() ?>
     <div class="container col-md-8">
         <div class="content">
