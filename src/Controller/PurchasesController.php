@@ -34,10 +34,14 @@ class PurchasesController extends AppController
             
             
             if ($this->Purchases->save($purchasePatchEntity)) {
-                if ($this->installmentPayment($purchasePatchEntity)) {
-                    $this->Flash->success(__('Compra realizada com sucesso'));  
-                    return $this->redirect(['action' => 'index']);
-                }
+
+                if (isset($this->request->data['isInstallments']))
+                    $this->installmentPayment($purchasePatchEntity);
+
+                $this->decreaseUserBalance($purchasePatchEntity);
+
+                $this->Flash->success(__('Compra realizada com sucesso'));  
+                return $this->redirect(['action' => 'index']);
             } else {
                 $this->Flash->error(__('Não foi possível registrar sua compra'));
             }
@@ -46,20 +50,27 @@ class PurchasesController extends AppController
         $this->set(compact('purchase'));
     }
 
-    private function installmentPayment($purchase) {
-        if ($this->request->data['isInstallments'] == 'on') {
-            $installmentData = $this->request->data['installment-payment'];
+    private function decreaseUserBalance($purchase) 
+    {
+        $userTable = TableRegistry::get('users');
+        $user = $userTable->get($purchase->user_id);
+        
+        $user->balance = $user->balance - $purchase->value;
+        $userTable->save($user);
+    }
 
-            $installmentTable = TableRegistry::get('installments');
-            $installment = $installmentTable->newEntity();
+    private function installmentPayment($purchase) 
+    {
+        $installmentData = $this->request->data['installment-payment'];
 
-            $installment->purchase_id = $purchase->id;
-            $installment->value = $purchase->value;
-            $installment->start = date("Y-m-d", strtotime($purchase->created));
-            $installment->installments = $installmentData;
+        $installmentTable = TableRegistry::get('installments');
+        $installment = $installmentTable->newEntity();
 
-            $installmentTable->save($installment);
+        $installment->purchase_id = $purchase->id;
+        $installment->value = $purchase->value;
+        $installment->start = date("Y-m-d", strtotime($purchase->created));
+        $installment->installments = $installmentData;
 
-        }
+        $installmentTable->save($installment);
     }
 }
