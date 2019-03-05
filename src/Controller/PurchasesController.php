@@ -55,7 +55,16 @@ class PurchasesController extends AppController
         $userTable = TableRegistry::get('users');
         $user = $userTable->get($purchase->user_id);
         
-        $user->balance = $user->balance - $purchase->value;
+        if (!isset($this->request->data['isInstallments'])) {
+            $user->balance = $user->balance - $purchase->value;
+        } else {
+
+            $installmentData = $this->request->data['installment-payment'];
+            $valuePerMonth = $purchase->value/$installmentData;
+
+            $user->balance = $user->balance - $valuePerMonth;
+        }
+
         $userTable->save($user);
     }
 

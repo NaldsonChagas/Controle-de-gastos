@@ -11,18 +11,6 @@
   </div>
 
   <div class="col-md-5">
-    <h3 class="text-center">Minha conta</h2>
-    <ul class="list-group">
-      <li class="list-group-item">Alterar dados</li>
-      <li class="list-group-item">
-      <?= $this->Html->link(__('Sair'), ['controller' => 'users', 'action' => 'logout']) ?>
-      </li>
-    </ul>
-  </div>
-</div>
-
-<div class="row content">
-  <div class="col-md-5">
     <h3 class="text-center">Saldo mensal</h3>
 
     <ul class="list-group">
@@ -30,5 +18,17 @@
       <li class="list-group-item"><a href="#">Relatórios detalhados</a></li>
     </ul>
 
+  </div>
+</div>
+
+<div class="row content">
+  <div class="col-md-5">
+    <h3 class="text-center">Minha conta</h2>
+    <ul class="list-group">
+      <li class="list-group-item">Alterar dados</li>
+      <li class="list-group-item">
+      <?= $this->Html->link(__('Sair'), ['controller' => 'users', 'action' => 'logout']) ?>
+      </li>
+    </ul>
   </div>
 </div>
