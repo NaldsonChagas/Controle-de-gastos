@@ -77,6 +77,7 @@ class PurchasesController extends AppController
                 ->patchEntity($purchase, $this->request->getData());
             
             $purchasePatchEntity->user_id = $this->Auth->user()['id'];
+            $purchasePatchEntity->is_constant_payment = true;
             
             if ($this->Purchases->save($purchasePatchEntity)) {
                 $this->Flash->success('Serviço cadastrado com sucesso');
