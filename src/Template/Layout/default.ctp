@@ -44,7 +44,5 @@ $cakeDescription = 'Controle seus gastos e economize mais no fim do mês';
         <?= $this->fetch('content') ?>
         </div>
     </div>
-    <footer>
-    </footer>
 </body>
 </html>

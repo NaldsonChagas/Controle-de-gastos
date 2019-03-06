@@ -5,6 +5,8 @@
     <ul class="list-group">
       <li class="list-group-item"><?=$this->Html->link(__('Registrar uma nova compra'), 
     ['controller' => 'purchases', 'action' => 'add'])?></li>
+    <li class="list-group-item"><?=$this->Html->link(__('Registrar um novo serviço'), 
+    ['controller' => 'purchases', 'action' => 'addConstantPayment'])?></li>
       <li class="list-group-item"><?=$this->Html->link(__('Ver minhas compras'), 
     ['controller' => 'purchases', 'action' => 'index'])?></li>
     </ul>

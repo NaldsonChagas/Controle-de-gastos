@@ -50,6 +50,25 @@ class PurchasesController extends AppController
         $this->set(compact('purchase'));
     }
 
+    public function addConstantPayment() 
+    {
+        $purchase = $this->Purchases->newEntity();
+
+        if ($this->request->is('POST')) {
+            $purchasePatchEntity = $this->Purchases
+                ->patchEntity($purchase, $this->request->getData());
+            
+            $purchasePatchEntity->user_id = $this->Auth->user()['id'];
+            
+            if ($this->Purchases->save($purchasePatchEntity)) {
+                $this->Flash->success('Serviço cadastrado com sucesso');
+                return $this->redirect(['controller' => 'welcome', 'action' => 'index']);
+            }
+        }
+
+        $this->set(compact('purchase'));
+    }
+
     private function decreaseUserBalance($purchase) 
     {
         $userTable = TableRegistry::get('users');
