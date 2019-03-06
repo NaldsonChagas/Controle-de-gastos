@@ -10,6 +10,7 @@ use Cake\Validation\Validator;
  * Purchases Model
  *
  * @property \App\Model\Table\UsersTable|\Cake\ORM\Association\BelongsTo $Users
+ * @property \App\Model\Table\InstallmentsTable|\Cake\ORM\Association\HasMany $Installments
  *
  * @method \App\Model\Entity\Purchase get($primaryKey, $options = [])
  * @method \App\Model\Entity\Purchase newEntity($data = null, array $options = [])
@@ -45,6 +46,9 @@ class PurchasesTable extends Table
             'foreignKey' => 'user_id',
             'joinType' => 'INNER'
         ]);
+        $this->hasMany('Installments', [
+            'foreignKey' => 'purchase_id'
+        ]);
     }
 
     /**
@@ -74,6 +78,11 @@ class PurchasesTable extends Table
             ->scalar('description')
             ->requirePresence('description', 'create')
             ->allowEmptyString('description', false);
+
+        $validator
+            ->boolean('is_constant_payment')
+            ->requirePresence('is_constant_payment', 'create')
+            ->allowEmptyString('is_constant_payment', false);
 
         return $validator;
     }

@@ -86,6 +86,34 @@ class PurchasesController extends AppController
         $this->set(compact('purchase'));
     }
 
+    public function servicesPurchases() 
+    {
+        $query = $this->Purchases->find('all')->where(['Purchases.is_constant_payment' => '1']);
+        $servicesPurchases = $query->all();
+
+        if ($this->request->is('POST')) {
+
+            $purchaseData = $this->Purchases->get($this->request->data['service-id']);
+
+            $purchase = $this->Purchases->newEntity();
+            $purchase->title = __('Pagamento ').$purchaseData->title;
+            $purchase->value = $purchaseData->value;
+            $purchase->description = $purchaseData->description;
+            $purchase->user_id = $this->Auth->user()['id'];
+            $purchase->is_constant_payment = true;
+            $this->decreaseUserBalance($purchase, false, null);    
+
+            if ($this->Purchases->save($purchase)) {
+                $this->Flash->success(__('Pagamento registrado com sucesso'));
+                return $this->redirect(['action' => 'index']);
+            } else {
+                $this->Flash->error(__('Não foi possível registrar o pagamento'));
+            }
+        }
+
+        $this->set(compact('servicesPurchases'));
+    }
+
     private function registerInstallmentPay()
     {
         $installmentTable = TableRegistry::get('installments');

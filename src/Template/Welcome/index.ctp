@@ -17,7 +17,7 @@
 
     <ul class="list-group">
       <li class="list-group-item"><?=$this->Html->link(__('Pagamento de parcelas'), ['controller' => 'purchases', 'action' => 'installmentPurchases'])?></li>
-      <li class="list-group-item"><a href="#">Pagamentos de serviços</a></li>
+      <li class="list-group-item"><?=$this->Html->link(__('Pagamentos de serviços'), ['controller' => 'purchases', 'action' => 'servicesPurchases'])?></li>
     </ul>
   </div>
 </div>
