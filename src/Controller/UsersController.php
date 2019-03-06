@@ -23,9 +23,11 @@ class UsersController extends AppController
 
             $userPatchEntity = $this->Users->PatchEntity($user,
                 $this->request->getData());
+            $userPatchEntity->balance = $userPatchEntity->salary+$userPatchEntity->extra_lace;
 
             if ($this->Users->save($user)) {
                 $this->Flash->success('Cadastro realizado com sucesso');
+                return $this->redirect(['action' => 'login']);
             } else {
                 $this->Flash->error('Não foi possível realizar o seu cadastro');
             }

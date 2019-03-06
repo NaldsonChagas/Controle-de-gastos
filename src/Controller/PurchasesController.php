@@ -17,7 +17,8 @@ class PurchasesController extends AppController
             ],
         ];
 
-        $purchases = $this->paginate($this->Purchases);
+        $purchases = $this->paginate($this->Purchases->find('all')
+            ->where(['Purchases.user_id' => $this->Auth->user()['id']]));
 
         $this->set(compact('purchases'));
     }
@@ -170,7 +171,7 @@ class PurchasesController extends AppController
         $installment->remaning_installments = $installmentData - 1;
 
         $installmentTable->save($installment);
-        
+
         return $installment;
     }
 }
