@@ -19,8 +19,8 @@
 
       <tr>
         <td><?=$purchase->title?></td>
-        <td><?=$purchase->value?></td>
-        <td><?=$purchase->created?></td>
+        <td><?=number_format($purchase->value, 2, ',', '.')?></td>
+        <td><?=date('d/m/Y', strtotime($purchase->created))?></td>
       </tr>
 
       <?php
