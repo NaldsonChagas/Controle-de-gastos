@@ -35,10 +35,12 @@ class PurchasesController extends AppController
             
             if ($this->Purchases->save($purchasePatchEntity)) {
 
+                $installment = null;
                 if (isset($this->request->data['isInstallments']))
-                    $this->installmentPayment($purchasePatchEntity);
+                    $installment = $this->installmentPayment($purchasePatchEntity);
 
-                $this->decreaseUserBalance($purchasePatchEntity);
+                $this->decreaseUserBalance($purchasePatchEntity, 
+                    isset($this->request->data['isInstallments']), $installment);
 
                 $this->Flash->success(__('Compra realizada com sucesso'));  
                 return $this->redirect(['action' => 'index']);
@@ -48,6 +50,21 @@ class PurchasesController extends AppController
         }
 
         $this->set(compact('purchase'));
+    }
+
+    public function installmentPurchases()
+    {
+        $installmentTable = TableRegistry::get('installments');
+        $query = $installmentTable->find()->contain('Purchases')
+            ->where(['Purchases.user_id = ' => $this->Auth->user()['id']]);
+        
+        $purchasesInstallment = $query->all();
+
+        if ($this->request->is('POST')) {
+            $this->registerInstallmentPay();
+        }
+
+        $this->set(compact('purchasesInstallment'));
     }
 
     public function addConstantPayment() 
@@ -69,17 +86,40 @@ class PurchasesController extends AppController
         $this->set(compact('purchase'));
     }
 
-    private function decreaseUserBalance($purchase) 
+    private function registerInstallmentPay()
+    {
+        $installmentTable = TableRegistry::get('installments');
+        $installment = $installmentTable->get($this->request->data['installment-id']);        
+        $installment->remaning_installments = $installment->remaning_installments - 1;
+
+        $installmentTable->save($installment);
+
+        $purchaseData = $this->Purchases->get($installment->purchase_id);
+
+        $purchase = $this->Purchases->newEntity();
+
+        $purchase->title = __('Pagamento de parcela do ').$purchaseData->title;
+        $purchase->value = $purchaseData->value;
+        $purchase->description = $purchaseData->description;
+        $purchase->user_id = $this->Auth->user()['id'];
+        $this->decreaseUserBalance($purchase, true, $installment);
+
+        if ($this->Purchases->save($purchase)) {
+            $this->Flash->success(__('Registro de pagamento de parcela feito com sucesso!'));
+            return $this->redirect(['action' => 'index']);
+        }
+    }
+
+    private function decreaseUserBalance($purchase, $isInstallmentPurchase, $installment) 
     {
         $userTable = TableRegistry::get('users');
         $user = $userTable->get($purchase->user_id);
         
-        if (!isset($this->request->data['isInstallments'])) {
+        if (!$isInstallmentPurchase) {
             $user->balance = $user->balance - $purchase->value;
         } else {
 
-            $installmentData = $this->request->data['installment-payment'];
-            $valuePerMonth = $purchase->value/$installmentData;
+            $valuePerMonth = $purchase->value/$installment->installments;
 
             $user->balance = $user->balance - $valuePerMonth;
         }
@@ -89,7 +129,7 @@ class PurchasesController extends AppController
 
     private function installmentPayment($purchase) 
     {
-        $installmentData = $this->request->data['installment-payment'];
+        $installmentData = $this->request->data['installment-number'];
 
         $installmentTable = TableRegistry::get('installments');
         $installment = $installmentTable->newEntity();
@@ -100,5 +140,7 @@ class PurchasesController extends AppController
         $installment->installments = $installmentData;
 
         $installmentTable->save($installment);
+
+        return $installment;
     }
 }

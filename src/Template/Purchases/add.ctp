@@ -17,7 +17,7 @@
   </div>
 
   <div class="form-group">
-    <select class="form-control hidden" name="installment-payment" id="installment-payment">
+    <select class="form-control hidden" name="installment-number" id="installment-payment">
       <option>Selecione o número de parcelas</option>
     </select>
   </div>

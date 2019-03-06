@@ -11,9 +11,9 @@ use Cake\ORM\Entity;
  * @property float $value
  * @property \Cake\I18n\FrozenDate $start
  * @property int $installments
+ * @property int $remaning_installments
  *
  * @property \App\Model\Entity\Purchase $purchase
- * @property \App\Model\Entity\User $user
  */
 class Installment extends Entity
 {
@@ -32,7 +32,7 @@ class Installment extends Entity
         'value' => true,
         'start' => true,
         'installments' => true,
-        'purchase' => true,
-        'user' => true
+        'remaning_installments' => true,
+        'purchase' => true
     ];
 }

@@ -70,6 +70,11 @@ class InstallmentsTable extends Table
             ->requirePresence('installments', 'create')
             ->allowEmptyString('installments', false);
 
+        $validator
+            ->integer('remaning_installments')
+            ->requirePresence('remaning_installments', 'create')
+            ->allowEmptyString('remaning_installments', false);
+
         return $validator;
     }
 

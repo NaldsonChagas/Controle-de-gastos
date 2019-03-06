@@ -22,6 +22,7 @@ class InstallmentsFixture extends TestFixture
         'value' => ['type' => 'float', 'length' => null, 'precision' => null, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => ''],
         'start' => ['type' => 'date', 'length' => null, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null],
         'installments' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
+        'remaning_installments' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         '_constraints' => [
             'primary' => ['type' => 'primary', 'columns' => ['id'], 'length' => []],
         ],
@@ -44,8 +45,9 @@ class InstallmentsFixture extends TestFixture
                 'id' => 1,
                 'purchase_id' => 1,
                 'value' => 1,
-                'start' => '2019-03-05',
-                'installments' => 1
+                'start' => '2019-03-06',
+                'installments' => 1,
+                'remaning_installments' => 1
             ],
         ];
         parent::init();

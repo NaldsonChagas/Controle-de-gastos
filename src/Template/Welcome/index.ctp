@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row content">
 
   <div class="col-md-5">
     <h3 class="text-center">Minhas compras</h2>
@@ -13,17 +13,25 @@
   </div>
 
   <div class="col-md-5">
+    <h3 class="text-center">Registrar pagamentos</h3>
+
+    <ul class="list-group">
+      <li class="list-group-item"><?=$this->Html->link(__('Pagamento de parcelas'), ['controller' => 'purchases', 'action' => 'installmentPurchases'])?></li>
+      <li class="list-group-item"><a href="#">Pagamentos de serviços</a></li>
+    </ul>
+  </div>
+</div>
+
+<div class="row content">
+  <div class="col-md-5">
     <h3 class="text-center">Saldo mensal</h3>
 
     <ul class="list-group">
       <li class="list-group-item text-success">Saldo mensal: R$ <?= number_format($userBalance, 2, ',', '.'); ?></li>
       <li class="list-group-item"><a href="#">Relatórios detalhados</a></li>
     </ul>
-
   </div>
-</div>
 
-<div class="row content">
   <div class="col-md-5">
     <h3 class="text-center">Minha conta</h2>
     <ul class="list-group">
