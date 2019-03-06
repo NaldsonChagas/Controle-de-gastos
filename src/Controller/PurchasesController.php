@@ -31,7 +31,7 @@ class PurchasesController extends AppController
                 ->patchEntity($purchase, $this->request->getData());
 
             $purchasePatchEntity->user_id = $this->Auth->user()['id'];
-            
+            $purchasePatchEntity->is_constant_payment = false;
             
             if ($this->Purchases->save($purchasePatchEntity)) {
 
@@ -130,6 +130,7 @@ class PurchasesController extends AppController
         $purchase->value = $purchaseData->value;
         $purchase->description = $purchaseData->description;
         $purchase->user_id = $this->Auth->user()['id'];
+        $purchase->is_constant_payment = false;
         $this->decreaseUserBalance($purchase, true, $installment);
 
         if ($this->Purchases->save($purchase)) {
@@ -166,9 +167,10 @@ class PurchasesController extends AppController
         $installment->value = $purchase->value;
         $installment->start = date("Y-m-d", strtotime($purchase->created));
         $installment->installments = $installmentData;
+        $installment->remaning_installments = $installmentData - 1;
 
         $installmentTable->save($installment);
-
+        
         return $installment;
     }
 }
