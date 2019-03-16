@@ -9,6 +9,7 @@
         <td>Título</td>
         <td>Valor</td>
         <td>Data</td>
+        <td>Pagamento recorrente (Pagamento de um serviço)</td>
       </tr>
     </thead>
 
@@ -21,6 +22,7 @@
         <td><?=$purchase->title?></td>
         <td><?=number_format($purchase->value, 2, ',', '.')?></td>
         <td><?=date('d/m/Y', strtotime($purchase->created))?></td>
+        <td><?=$purchase->is_constant_payment == 1 ? 'Sim' : 'Não'?></td>
       </tr>
 
       <?php
